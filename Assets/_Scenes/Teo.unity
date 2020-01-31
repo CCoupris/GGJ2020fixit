@@ -165,14 +165,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 904574847}
-  xSpeed: 5
-  ySpeed: 5
-  maxspeed: 5
+  xSpeed: 20
+  ySpeed: 20
+  maxspeed: 100
   yMinLimit: -90
   yMaxLimit: 90
   distanceMin: 2
   distanceMax: 10
-  smoothTime: 1
+  decelerationSpeed: 10
   cameraPivotDistance: 10
   zoomSpeed: 5
 --- !u!1 &904574844
