@@ -24,7 +24,7 @@ public class OrbitalCamera : MonoBehaviour
     [SerializeField]
     protected float distanceMax = 10f;
     [SerializeField]
-    protected float smoothTime = 2f;
+    protected float decelerationSpeed = 2f;
     [Header("zoomOption")]
     [SerializeField]
     protected float cameraPivotDistance = 10f;
@@ -65,8 +65,8 @@ public class OrbitalCamera : MonoBehaviour
             Quaternion toRotation = Quaternion.Euler(rotationXAxis, rotationYAxis, 0);
             Quaternion rotation = toRotation;
             transform.rotation = rotation;
-            velocityX = Mathf.Lerp(velocityX, 0, Time.deltaTime * smoothTime);
-            velocityY = Mathf.Lerp(velocityY, 0, Time.deltaTime * smoothTime);
+            velocityX = Mathf.Lerp(velocityX, 0, Time.deltaTime * decelerationSpeed);
+            velocityY = Mathf.Lerp(velocityY, 0, Time.deltaTime * decelerationSpeed);
             CheckZoom();
         }
     }
