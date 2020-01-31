@@ -56,6 +56,7 @@ public class OrbitalCamera : MonoBehaviour
                 velocityX += xSpeed * Input.GetAxis("Mouse X") * distance * 0.02f;
                 velocityY += ySpeed * Input.GetAxis("Mouse Y") * 0.02f;
             }
+
             velocityX = Mathf.Clamp(velocityX, -maxspeed, maxspeed);
             velocityY = Mathf.Clamp(velocityY, -maxspeed, maxspeed);
             rotationYAxis += velocityX;

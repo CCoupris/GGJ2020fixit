@@ -164,15 +164,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebb3e87188f1384caeb9ae79f4cda9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 904574847}
-  distance: 2
-  xSpeed: 1
-  ySpeed: 1
+  camera: {fileID: 904574847}
+  xSpeed: 5
+  ySpeed: 5
+  maxspeed: 5
   yMinLimit: -90
   yMaxLimit: 90
-  distanceMin: 10
+  distanceMin: 2
   distanceMax: 10
   smoothTime: 1
+  cameraPivotDistance: 10
+  zoomSpeed: 5
 --- !u!1 &904574844
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904574844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -8.95}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 771790548}
