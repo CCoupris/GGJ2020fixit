@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     protected float deathDistance;
     static public bool Drag;
     static public bool Click;
+    static public bool StartTouch;
     void Update()
     {
         click = false;
@@ -45,5 +46,6 @@ public class InputManager : MonoBehaviour
         }
         Drag = drag;
         Click = click;
+        StartTouch = startTouch;
     }
 }
