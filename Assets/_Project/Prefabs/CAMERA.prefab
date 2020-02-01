@@ -111,12 +111,12 @@ MonoBehaviour:
   xSpeed: 20
   ySpeed: 20
   maxspeed: 100
-  yMinLimit: -50
+  yMinLimit: -8
   yMaxLimit: 90
   distanceMin: 2
-  distanceMax: 10
+  distanceMax: 6
   decelerationSpeed: 10
-  cameraPivotDistance: 10
+  cameraPivotDistance: 6
   zoomSpeed: 5
 --- !u!1 &3014978485788632117
 GameObject:
@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3014978485788632117}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7534059487977807320}

@@ -799,6 +799,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2745567992595731601, guid: 121f892ce9fc57d43850b9ed8067bb04,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 121f892ce9fc57d43850b9ed8067bb04, type: 3}
 --- !u!1001 &267899604
@@ -1496,7 +1501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &514326295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5869,25 +5874,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -6
       objectReference: {fileID: 0}
-    - target: {fileID: 3014978485623604636, guid: 2c70820b01ea01b47add810284060199,
+    - target: {fileID: 7534059487977807320, guid: 2c70820b01ea01b47add810284060199,
         type: 3}
-      propertyPath: distanceMin
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014978485623604636, guid: 2c70820b01ea01b47add810284060199,
-        type: 3}
-      propertyPath: yMinLimit
-      value: -8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014978485623604636, guid: 2c70820b01ea01b47add810284060199,
-        type: 3}
-      propertyPath: distanceMax
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3014978485623604636, guid: 2c70820b01ea01b47add810284060199,
-        type: 3}
-      propertyPath: cameraPivotDistance
-      value: 6
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7485330981831406217, guid: 2c70820b01ea01b47add810284060199,
         type: 3}

@@ -1,5 +1,42 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1193629475116512796
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
+  m_Name: AutoExposure
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  filtering:
+    overrideState: 1
+    value: {x: 41.565357, y: 95}
+  minLuminance:
+    overrideState: 1
+    value: -0.1
+  maxLuminance:
+    overrideState: 1
+    value: 9
+  keyValue:
+    overrideState: 1
+    value: 1.1
+  eyeAdaptation:
+    overrideState: 1
+    value: 1
+  speedUp:
+    overrideState: 0
+    value: 2
+  speedDown:
+    overrideState: 0
+    value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,6 +54,7 @@ MonoBehaviour:
   - {fileID: 4657301850968989471}
   - {fileID: 6193492839530977623}
   - {fileID: 8490527288012679129}
+  - {fileID: -1193629475116512796}
 --- !u!114 &4657301850968989471
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -78,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1411,7 +1449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1419,26 +1457,26 @@ MonoBehaviour:
     overrideState: 1
     value: 10
   threshold:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 1.05
   softKnee:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0.2
   clamp:
     overrideState: 0
     value: 65472
   diffusion:
     overrideState: 0
-    value: 7
+    value: 7.9
   anamorphicRatio:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.3
   color:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
   dirtTexture:
     overrideState: 0
     value: {fileID: 0}

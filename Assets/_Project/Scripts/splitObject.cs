@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pixelplacement;
+using Pixelplacement.TweenSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,18 @@ public class splitObject : MonoBehaviour
     protected new OrbitalCamera camera;
     protected Orbit orbit;
     private bool inHud;
-    protected static splitObject inHand;
+    private static splitObject inHand;
     protected bool drag;
+
     protected Vector3 initialPos;
     protected Quaternion initialRot;
+
+    protected Coroutine currentCoroutine;
+    protected MeshCollider meshCollider;
+
+    protected TweenBase currentTween;
+    protected TweenBase currentTween2;
+
     public bool IsFixed 
     { 
         get => isFixed;
@@ -25,6 +35,54 @@ public class splitObject : MonoBehaviour
         {
             isFixed = value;
             CheckFace();
+        }
+    }
+
+    protected static splitObject InHand 
+    { 
+        get => inHand;
+        set
+        {
+            inHand = value;
+            CheckHand();
+        }
+    }
+
+    private static void CheckHand()
+    {
+        foreach(splitObject split in FindObjectsOfType<splitObject>()){
+            if(inHand is null)
+            {
+                if (split.IsFixed)
+                {
+                    foreach (snapFace snap in split.snapFaces)
+                    {
+                        snap.GetComponent<Collider>().enabled = false;
+                    }
+                }
+                split.GetComponent<Collider>().enabled = true;
+            }
+            else if (inHand == split)
+            {
+                split.GetComponent<Collider>().enabled = true;
+            }
+            else
+            {
+                if (split.IsFixed)
+                {
+                    split.GetComponent<Collider>().enabled = true;
+
+                    foreach (snapFace snap in split.snapFaces)
+                    {
+                        snap.GetComponent<Collider>().enabled = true;
+                        snap.CheckCompatible();
+                    }
+                }
+                else
+                {
+                    split.GetComponent<Collider>().enabled = false;
+                }
+            }
         }
     }
 
@@ -47,44 +105,19 @@ public class splitObject : MonoBehaviour
     private void Awake()
     {
         transform.parent = null;
-        snapFaces = GetComponentsInChildren<snapFace>().ToList();
-        orbit = GetComponent<Orbit>();
-        CheckFace();
-        camera = FindObjectOfType<OrbitalCamera>();
         initialPos = transform.position;
         initialRot = transform.rotation;
+        snapFaces = GetComponentsInChildren<snapFace>().ToList();
+        orbit = GetComponent<Orbit>();
+        camera = FindObjectOfType<OrbitalCamera>();
+        meshCollider = GetComponent<MeshCollider>();
+        CheckFace();
+        CheckHand();
+        
     }
 
     protected void OnMouseOver()
     {
-        if (InputManager.Click)
-        {
-            if (inHand == null || inHand == this)
-            {
-                if (!IsFixed)
-                {
-                    if (!rotatingMode)
-                    {
-                        inHand = this;
-                        inHud = false;
-                        orbit.enabled = true;
-                        camera.enabled = false;
-                        rotatingMode = true;
-                        transform.parent = GameObject.FindGameObjectWithTag("ObjectContainer").transform;
-                        StartCoroutine(GoToPoint(GameObject.FindGameObjectWithTag("RotationPosition").transform.position, 2));
-                        gameObject.layer = 5;
-
-                    }
-                    else
-                    {
-                        rotatingMode = false;
-                        camera.enabled = true;
-                        orbit.enabled = false;
-                        StartCoroutine(GoInHUD(2));
-                    }
-                }
-            }
-        }
         if (InputManager.StartTouch)
         {
             if (inHand == this)
@@ -93,108 +126,114 @@ public class splitObject : MonoBehaviour
                 camera.enabled = false;
                 orbit.enabled = true;
             }
-            
         }
-    }
-
-    private IEnumerator GoInHUD(float transitionTime)
-    {
-        Transform position = GameObject.FindGameObjectWithTag("CubePosition").transform;
-        transform.parent = position;
-        float time = 0;
-        while (time < 1)
+        if (InputManager.Click)
         {
-            time += Time.deltaTime / transitionTime;
-            transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, time);
-            yield return null;
+            if (inHand == null)
+            {
+                if (!IsFixed)
+                {
+                    gameObject.layer = 5;
+                    InHand = this;
+                    camera.enabled = true;
+                    orbit.enabled = false;
+                    inHud = true;
+                    Transform position = GameObject.FindGameObjectWithTag("CubePosition").transform;
+                    transform.parent = position;
+                    GoToPoint(Vector3.zero,1, true);
+                }
+            }
         }
-        inHud = true;
     }
 
     private void Update()
     {
-        
-        if (inHud)
+        if (inHud && InputManager.Click)
         {
-            if (InputManager.Click)
+            int layer = 1 << 5 | 1 << 2;
+            layer = ~layer;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layer))
             {
-                int layer = 1 << 5 | 1 << 2;
-                layer = ~layer;
-                if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layer))
+                Debug.Log(hit.transform);
+                if (hit.transform.GetComponent<snapFace>())
                 {
                     
-
-                    if (hit.transform.GetComponent<snapFace>())
-                    {
-                        if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
-                        {
-                            inHud = false;
-                            inHand = null;
-                            gameObject.layer = 9;
-                            transform.parent = null;
-                            StartCoroutine(GoToPoint(hit.transform.position, 2, hit.transform.rotation));
-                            IsFixed = true;
-                            foreach (snapFace face in snapFaces)
-                            {
-                                face.gameObject.SetActive(true);
-                                face.CheckCompatible();
-                            }
-                        }
-
-                    } else if(!hit.transform.GetComponent<splitObject>())
+                    if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
                     {
                         inHud = false;
-                        inHand = null;
+                        InHand = null;
                         gameObject.layer = 9;
                         transform.parent = null;
-                        StartCoroutine(GoToPoint(initialPos, 1, initialRot));
+                        GoToPoint(hit.transform.position, 1, hit.transform.rotation);
+                        IsFixed = true;
+                        foreach (snapFace face in snapFaces)
+                        {
+                            face.gameObject.SetActive(true);
+                            face.CheckCompatible();
+                        }
                     }
                 }
-                if (drag && !InputManager.StartTouch)
+                else if (!hit.transform.GetComponent<splitObject>())
                 {
-                    drag = false;
-                    camera.enabled = true;
-                    orbit.enabled = false;
+                    inHud = false;
+                    InHand = null;
+                    gameObject.layer = 9;
+                    transform.parent = null;
+                    GoToPoint(initialPos, 1, false);
                 }
             }
         }
-        
+        if (drag && !InputManager.StartTouch)
+        {
+            drag = false;
+            camera.enabled = true;
+            orbit.enabled = false;
+        }
+
     }
 
-    protected IEnumerator GoToPoint(Vector3 position, float transitionTime, bool local = false)
+    protected void GoToPoint(Vector3 position, float transitiontime, bool local = false)
     {
-        float time = 0;
-        while (time < 1)
+
+        if (currentTween != null)
         {
-            time += Time.deltaTime / transitionTime;
-            if (local)
-            {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, position, time);
-            }else
-            {
-                transform.position = Vector3.Lerp(transform.position, position, time);
-            }
-            yield return null;
+            currentTween.Stop();
+        }
+        if (currentTween2 != null)
+        {
+            currentTween2.Stop();
+        }
+
+        if (local)
+        {
+            currentTween = Tween.LocalPosition(transform, position, transitiontime,0, Tween.EaseInOut);
+        } else
+        {
+            currentTween = Tween.Position(transform, position, transitiontime, 0, Tween.EaseInOut);
         }
     }
 
-    protected IEnumerator GoToPoint(Vector3 position, float transitionTime, Quaternion rotation, bool local = false)
+    protected void GoToPoint(Vector3 position, float transitiontime, Quaternion rotation, bool local = false)
     {
-        float time = 0;
-        while (time < 1)
+        if (currentTween != null)
         {
-            time += Time.deltaTime / transitionTime;
-            if (local)
-            {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, position, time);
-                transform.localRotation = Quaternion.Lerp(transform.localRotation, rotation, time);
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, position, time);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, time);
-            }
-            yield return null;
+            currentTween.Stop();
+        }
+        if (currentTween2 != null)
+        {
+            currentTween2.Stop();
+        }
+
+        if (local)
+        {
+            currentTween = Tween.LocalPosition(transform, position, transitiontime, 0, Tween.EaseInOut);
+            currentTween2 = Tween.LocalRotation(transform, rotation, transitiontime, 0, Tween.EaseInOut);
+        }
+        else
+        {
+            currentTween = Tween.Position(transform, position, transitiontime, 0, Tween.EaseInOut);
+            currentTween2 =Tween.Rotation(transform, rotation, transitiontime, 0, Tween.EaseInOut);
+
         }
     }
 }
