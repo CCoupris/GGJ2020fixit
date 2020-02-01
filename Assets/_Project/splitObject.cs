@@ -16,6 +16,8 @@ public class splitObject : MonoBehaviour
     private bool inHud;
     protected static splitObject inHand;
     protected bool drag;
+    protected Vector3 initialPos;
+    protected Quaternion initialRot;
     public bool IsFixed 
     { 
         get => isFixed;
@@ -48,6 +50,8 @@ public class splitObject : MonoBehaviour
         orbit = GetComponent<Orbit>();
         CheckFace();
         camera = FindObjectOfType<OrbitalCamera>();
+        initialPos = transform.position;
+        initialRot = transform.rotation;
     }
 
     protected void OnMouseOver()
@@ -115,16 +119,22 @@ public class splitObject : MonoBehaviour
                 layer = ~layer;
                 if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layer))
                 {
+                    inHud = false;
+                    inHand = null;
+                    gameObject.layer = 9;
+                    transform.parent = null;
+
                     if (hit.transform.GetComponent<snapFace>())
                     {
                         if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
                         {
-                            inHand = null;
-                            transform.parent = null;
                             StartCoroutine(GoToPoint(hit.transform.position, 2, hit.transform.rotation));
-                            gameObject.layer = 9;
                             IsFixed = true;
                         }
+                    } else
+                    {
+                        StartCoroutine(GoToPoint(initialPos, 2, initialRot));
+
                     }
                 }
             }
@@ -137,25 +147,40 @@ public class splitObject : MonoBehaviour
         }
     }
 
-    protected IEnumerator GoToPoint(Vector3 position, float transitionTime)
+    protected IEnumerator GoToPoint(Vector3 position, float transitionTime, bool local = false)
     {
         float time = 0;
         while (time < 1)
         {
             time += Time.deltaTime / transitionTime;
-            transform.position = Vector3.Lerp(transform.position, position, time);
+            if (local)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, position, time);
+            }else
+            {
+                transform.position = Vector3.Lerp(transform.position, position, time);
+            }
             yield return null;
         }
     }
 
-    protected IEnumerator GoToPoint(Vector3 position, float transitionTime, Quaternion rotation)
+    protected IEnumerator GoToPoint(Vector3 position, float transitionTime, Quaternion rotation, bool local = false)
     {
         float time = 0;
         while (time < 1)
         {
             time += Time.deltaTime / transitionTime;
-            transform.position = Vector3.Lerp(transform.position, position, time);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, time);
+            if (local)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, position, time);
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, rotation, time);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, position, time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, time);
+            }
+            
             yield return null;
         }
     }
