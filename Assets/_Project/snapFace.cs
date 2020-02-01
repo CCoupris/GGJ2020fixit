@@ -8,7 +8,6 @@ public class snapFace : MonoBehaviour
 
     private void Awake()
     {
-        string searchname = gameObject.name.Replace("snap", "");
-        compatibleObject = GameObject.Find(searchname);
+        compatibleObject = GameObject.Find("/" + gameObject.name);
     }
 }

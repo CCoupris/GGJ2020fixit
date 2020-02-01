@@ -43,6 +43,7 @@ public class splitObject : MonoBehaviour
 
     private void Awake()
     {
+        transform.parent = null;
         snapFaces = GetComponentsInChildren<snapFace>().ToList();
         orbit = GetComponent<Orbit>();
         CheckFace();
