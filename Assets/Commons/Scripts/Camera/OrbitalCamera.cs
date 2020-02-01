@@ -37,6 +37,8 @@ public class OrbitalCamera : MonoBehaviour
     float velocityX = 0.0f;
     float velocityY = 0.0f;
 
+    public float CameraPivotDistance { get => cameraPivotDistance;}
+
     void Start()
     {
         Vector3 angles = transform.eulerAngles;
@@ -51,7 +53,7 @@ public class OrbitalCamera : MonoBehaviour
     {
         if (camera)
         {
-            if (Input.GetMouseButton(0))
+            if (InputManager.Drag)
             {
                 velocityX += xSpeed * Input.GetAxis("Mouse X") * distance * 0.02f;
                 velocityY += ySpeed * Input.GetAxis("Mouse Y") * 0.02f;
