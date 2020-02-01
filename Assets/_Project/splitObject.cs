@@ -13,7 +13,8 @@ public class splitObject : MonoBehaviour
     protected new OrbitalCamera camera;
     protected Orbit orbit;
     private bool inHud;
-
+    protected static splitObject inHand;
+    protected bool drag;
     public bool IsFixed 
     { 
         get => isFixed;
@@ -35,7 +36,6 @@ public class splitObject : MonoBehaviour
             else
             {
                 face.gameObject.SetActive(false);
-
             }
         }
     }
@@ -52,26 +52,41 @@ public class splitObject : MonoBehaviour
     {
         if (InputManager.Click)
         {
-            if (!IsFixed)
+            if (inHand == null || inHand == this)
             {
-                if (!rotatingMode)
+                if (!IsFixed)
                 {
-                    inHud = false;
-                    orbit.enabled = true;
-                    camera.enabled = false;
-                    rotatingMode = true;
-                    transform.parent = GameObject.FindGameObjectWithTag("ObjectContainer").transform;
-                    StartCoroutine(GoToPoint(GameObject.FindGameObjectWithTag("RotationPosition").transform.position, 2));
-                    gameObject.layer = 5;
-                }
-                else
-                {
-                    rotatingMode = false;
-                    camera.enabled = true;
-                    orbit.enabled = false;
-                    StartCoroutine(GoInHUD(2));
+                    if (!rotatingMode)
+                    {
+                        inHand = this;
+                        inHud = false;
+                        orbit.enabled = true;
+                        camera.enabled = false;
+                        rotatingMode = true;
+                        transform.parent = GameObject.FindGameObjectWithTag("ObjectContainer").transform;
+                        StartCoroutine(GoToPoint(GameObject.FindGameObjectWithTag("RotationPosition").transform.position, 2));
+                        gameObject.layer = 5;
+
+                    }
+                    else
+                    {
+                        rotatingMode = false;
+                        camera.enabled = true;
+                        orbit.enabled = false;
+                        StartCoroutine(GoInHUD(2));
+                    }
                 }
             }
+        }
+        if (InputManager.StartTouch)
+        {
+            if (inHand == this)
+            {
+                drag = true;
+                camera.enabled = false;
+                orbit.enabled = true;
+            }
+            
         }
     }
 
@@ -102,6 +117,7 @@ public class splitObject : MonoBehaviour
                     {
                         if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
                         {
+                            inHand = null;
                             transform.parent = null;
                             StartCoroutine(GoToPoint(hit.transform.position, 2, hit.transform.rotation));
                             gameObject.layer = 9;
@@ -110,6 +126,12 @@ public class splitObject : MonoBehaviour
                     }
                 }
             }
+        }
+        if (drag && !InputManager.StartTouch)
+        {
+            drag = false;
+            camera.enabled = true;
+            orbit.enabled = false;
         }
     }
 
@@ -146,10 +168,5 @@ public class splitObject : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, position.position, time);
             yield return null;
         }
-    }
-
-    private void OnDestroy()
-    {
-
     }
 }
