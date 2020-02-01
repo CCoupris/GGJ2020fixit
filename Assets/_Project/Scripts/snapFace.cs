@@ -10,4 +10,9 @@ public class snapFace : MonoBehaviour
     {
         compatibleObject = GameObject.Find("/" + gameObject.name);
     }
+
+    public void CheckCompatible()
+    {
+        compatibleObject = GameObject.Find("/" + gameObject.name);
+    }
 }

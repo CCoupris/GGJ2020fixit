@@ -35,6 +35,7 @@ public class splitObject : MonoBehaviour
             if (isFixed)
             {
                 face.gameObject.SetActive(true);
+                face.CheckCompatible();
             }
             else
             {
@@ -99,11 +100,12 @@ public class splitObject : MonoBehaviour
     private IEnumerator GoInHUD(float transitionTime)
     {
         Transform position = GameObject.FindGameObjectWithTag("CubePosition").transform;
+        transform.parent = position;
         float time = 0;
         while (time < 1)
         {
             time += Time.deltaTime / transitionTime;
-            transform.position = Vector3.Lerp(transform.position, position.position, time);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, time);
             yield return null;
         }
         inHud = true;
@@ -111,6 +113,7 @@ public class splitObject : MonoBehaviour
 
     private void Update()
     {
+        
         if (inHud)
         {
             if (InputManager.Click)
@@ -119,32 +122,43 @@ public class splitObject : MonoBehaviour
                 layer = ~layer;
                 if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layer))
                 {
-                    inHud = false;
-                    inHand = null;
-                    gameObject.layer = 9;
-                    transform.parent = null;
+                    
 
                     if (hit.transform.GetComponent<snapFace>())
                     {
                         if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
                         {
+                            inHud = false;
+                            inHand = null;
+                            gameObject.layer = 9;
+                            transform.parent = null;
                             StartCoroutine(GoToPoint(hit.transform.position, 2, hit.transform.rotation));
                             IsFixed = true;
+                            foreach (snapFace face in snapFaces)
+                            {
+                                face.gameObject.SetActive(true);
+                                face.CheckCompatible();
+                            }
                         }
-                    } else
-                    {
-                        StartCoroutine(GoToPoint(initialPos, 2, initialRot));
 
+                    } else if(!hit.transform.GetComponent<splitObject>())
+                    {
+                        inHud = false;
+                        inHand = null;
+                        gameObject.layer = 9;
+                        transform.parent = null;
+                        StartCoroutine(GoToPoint(initialPos, 1, initialRot));
                     }
+                }
+                if (drag && !InputManager.StartTouch)
+                {
+                    drag = false;
+                    camera.enabled = true;
+                    orbit.enabled = false;
                 }
             }
         }
-        if (drag && !InputManager.StartTouch)
-        {
-            drag = false;
-            camera.enabled = true;
-            orbit.enabled = false;
-        }
+        
     }
 
     protected IEnumerator GoToPoint(Vector3 position, float transitionTime, bool local = false)
@@ -180,19 +194,6 @@ public class splitObject : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, position, time);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, time);
             }
-            
-            yield return null;
-        }
-    }
-
-    protected IEnumerator GoToRotationCubeMode(float transitionTime)
-    {
-        Transform position = GameObject.FindGameObjectWithTag("RotationPosition").transform;
-        float time = 0;
-        while (time < 1)
-        {
-            time += Time.deltaTime / transitionTime;
-            transform.position = Vector3.Lerp(transform.position, position.position, time);
             yield return null;
         }
     }
