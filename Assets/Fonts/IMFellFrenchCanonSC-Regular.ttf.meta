@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 05ca6bd2705bef645a48e4e739926806
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: IM FELL French Canon SC
+  fontNames:
+  - IM FELL French Canon SC
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1e9198be35290d04d81608bd64fcaf7c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
