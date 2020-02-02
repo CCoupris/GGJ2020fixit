@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08159721, y: 0.27395836}
   m_AnchorMax: {x: 0.44909722, y: 0.3496528}
-  m_AnchoredPosition: {x: -0, y: -148}
+  m_AnchoredPosition: {x: 0, y: 433}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &143833544290123784
@@ -192,7 +192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5001388, y: 0.27395836}
   m_AnchorMax: {x: 0.82407403, y: 0.3496528}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 581}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3682835935244130606
@@ -350,7 +350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5001388, y: 0.27395836}
   m_AnchorMax: {x: 0.82407403, y: 0.3496528}
-  m_AnchoredPosition: {x: -0.0000074332, y: -148}
+  m_AnchoredPosition: {x: 0, y: 433}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5113990714058579641
@@ -508,7 +508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08159721, y: 0.27395836}
   m_AnchorMax: {x: 0.44909722, y: 0.3496528}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 0}
+  m_AnchoredPosition: {x: 0, y: 581}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &631417960041313781
@@ -664,9 +664,9 @@ RectTransform:
   m_Father: {fileID: 4600193234231089839}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.12513888, y: 0.6802083}
-  m_AnchorMax: {x: 0.44907406, y: 0.75590277}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.06949073, y: 0.240625}
+  m_AnchorMax: {x: 0.44907406, y: 0.31631944}
+  m_AnchoredPosition: {x: 0.049927, y: -14}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4600193233669747585
@@ -697,7 +697,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Sound Design
+  m_text: Music & Sound Design
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 244df53df8512e44f89d0796942411a3, type: 2}
   m_sharedMaterial: {fileID: -5545147805366229443, guid: 244df53df8512e44f89d0796942411a3,
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 14
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -767,12 +767,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 4600193233669747584}
-    characterCount: 12
+    characterCount: 20
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 3
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -824,7 +824,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08159721, y: 0.37881947}
   m_AnchorMax: {x: 0.44909722, y: 0.4545139}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4600193233898039575
@@ -982,7 +982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5001389, y: 0.6802084}
   m_AnchorMax: {x: 0.82407403, y: 0.7559028}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 3.1287e-10, y: -591}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4600193233924032510
@@ -1013,7 +1013,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Mattheo SISCARO
+  m_text: Matteo SISCARO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 244df53df8512e44f89d0796942411a3, type: 2}
   m_sharedMaterial: {fileID: -5545147805366229443, guid: 244df53df8512e44f89d0796942411a3,
@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 4600193233924032509}
-    characterCount: 15
+    characterCount: 14
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -1140,7 +1140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5001389, y: 0.5934028}
   m_AnchorMax: {x: 0.82407403, y: 0.66909724}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -584}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4600193234078815958
@@ -1171,7 +1171,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Raphael OLIVIER
+  m_text: Raphael OLIVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 244df53df8512e44f89d0796942411a3, type: 2}
   m_sharedMaterial: {fileID: -5545147805366229443, guid: 244df53df8512e44f89d0796942411a3,
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 4600193234078815957}
-    characterCount: 15
+    characterCount: 14
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -1389,6 +1389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   back: {fileID: 4600193235528509661}
+  menu: {fileID: 0}
 --- !u!1 &4600193234802128447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,7 +1583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -346, y: 168}
+  m_AnchoredPosition: {x: -245, y: 130}
   m_SizeDelta: {x: 314.8, y: 108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4600193235528509663
@@ -1785,7 +1786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12513886, y: 0.4961806}
   m_AnchorMax: {x: 0.44907406, y: 0.57187504}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7, y: -36}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4600193235551590672
@@ -1943,7 +1944,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5001388, y: 0.49618062}
   m_AnchorMax: {x: 0.82407403, y: 0.57187504}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7, y: -36}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8109250527706006452
@@ -2101,7 +2102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5001389, y: 0.37881947}
   m_AnchorMax: {x: 0.82407403, y: 0.4545139}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -9}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5972512717246332457
