@@ -148,47 +148,49 @@ public class splitObject : MonoBehaviour
 
     private void Update()
     {
-        if (inHud && InputManager.Click)
+        if (inHud)
         {
-            int layer = 1 << 5 | 1 << 2;
-            layer = ~layer;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layer))
+            if (InputManager.Click)
             {
-                Debug.Log(hit.transform);
-                if (hit.transform.GetComponent<snapFace>())
+                int layer = 1 << 5 | 1 << 2;
+                layer = ~layer;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, layer))
                 {
-                    
-                    if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
+                    Debug.Log(hit.transform);
+                    if (hit.transform.GetComponent<snapFace>())
                     {
-                        inHud = false;
-                        InHand = null;
-                        gameObject.layer = 9;
-                        transform.parent = null;
-                        GoToPoint(hit.transform.position, 1, hit.transform.rotation);
-                        IsFixed = true;
-                        foreach (snapFace face in snapFaces)
+                        if (hit.transform.GetComponent<snapFace>().compatibleObject == gameObject)
                         {
-                            face.gameObject.SetActive(true);
-                            face.CheckCompatible();
+                            inHud = false;
+                            InHand = null;
+                            gameObject.layer = 9;
+                            transform.parent = null;
+                            GoToPoint(hit.transform.position, 1, hit.transform.rotation);
+                            IsFixed = true;
+                            foreach (snapFace face in snapFaces)
+                            {
+                                face.gameObject.SetActive(true);
+                                face.CheckCompatible();
+                            }
                         }
                     }
                 }
-                else if (!hit.transform.GetComponent<splitObject>())
-                {
-                    inHud = false;
-                    InHand = null;
-                    gameObject.layer = 9;
-                    transform.parent = null;
-                    GoToPoint(initialPos, 1, false);
-                }
             }
-        }
-        if (drag && !InputManager.StartTouch)
-        {
-            drag = false;
-            camera.enabled = true;
-            orbit.enabled = false;
-        }
+            else if (InputManager.LeftClick)
+            {
+                inHud = false;
+                InHand = null;
+                gameObject.layer = 9;
+                transform.parent = null;
+                GoToPoint(initialPos, 1, false);
+            }
+            if (drag && !InputManager.StartTouch)
+            {
+                drag = false;
+                camera.enabled = true;
+                orbit.enabled = false;
+            }
+        } 
 
     }
 
