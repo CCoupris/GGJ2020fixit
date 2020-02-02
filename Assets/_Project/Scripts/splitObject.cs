@@ -30,6 +30,7 @@ public class splitObject : MonoBehaviour
 
     protected TweenBase currentTween;
     protected TweenBase currentTween2;
+    private bool isFinish;
 
     public bool IsFixed 
     { 
@@ -136,9 +137,21 @@ public class splitObject : MonoBehaviour
         meshCollider = GetComponent<MeshCollider>();
         CheckFace();
         CheckHand();
+        splitObject.OnFinish += SplitObject_OnFinish;
         
     }
 
+    private void SplitObject_OnFinish()
+    {
+        isFinish = true;
+    }
+
+
+    private void OnDestroy()
+    {
+        splitObject.OnFinish -= SplitObject_OnFinish;
+
+    }
     protected void OnMouseOver()
     {
         if (InputManager.StartTouch)
@@ -163,7 +176,8 @@ public class splitObject : MonoBehaviour
                     inHud = true;
                     Transform position = GameObject.FindGameObjectWithTag("CubePosition").transform;
                     transform.parent = position;
-                    GoToPoint(Vector3.zero,1, true);
+                    Sound.Takepiece.Play();
+                    GoToPoint(Vector3.zero,1 ,true);
                 }
             }
         }
@@ -188,7 +202,17 @@ public class splitObject : MonoBehaviour
                             InHand = null;
                             gameObject.layer = 9;
                             transform.parent = null;
-                            GoToPoint(hit.transform.position, 1, hit.transform.rotation);
+                            GoToPoint(hit.transform.position, 1, hit.transform.rotation, ()=>
+                            {
+                                if (isFinish)
+                                {
+                                    Sound.Lastpiece.Play();
+                                } else
+                                {
+                                    Sound.Place.Play();
+
+                                }
+                            });
                             IsFixed = true;
                             foreach (snapFace face in snapFaces)
                             {
@@ -205,6 +229,7 @@ public class splitObject : MonoBehaviour
                 InHand = null;
                 gameObject.layer = 9;
                 transform.parent = null;
+                Sound.Tablepiece.Play();
                 GoToPoint(initialPos, 1, false);
             }
             if (drag && !InputManager.StartTouch)
@@ -238,6 +263,30 @@ public class splitObject : MonoBehaviour
         }
     }
 
+    protected void GoToPoint(Vector3 position, float transitiontime, Action action, bool local = false)
+    {
+
+        if (currentTween != null)
+        {
+            currentTween.Stop();
+        }
+        if (currentTween2 != null)
+        {
+            currentTween2.Stop();
+        }
+
+        if (local)
+        {
+            currentTween = Tween.LocalPosition(transform, position, transitiontime, 0, Tween.EaseInOut, Tween.LoopType.None,null, action);
+        }
+        else
+        {
+            currentTween = Tween.Position(transform, position, transitiontime, 0, Tween.EaseInOut, Tween.LoopType.None, null, action);
+        }
+    }
+
+
+
     protected void GoToPoint(Vector3 position, float transitiontime, Quaternion rotation, bool local = false)
     {
         if (currentTween != null)
@@ -258,6 +307,30 @@ public class splitObject : MonoBehaviour
         {
             currentTween = Tween.Position(transform, position, transitiontime, 0, Tween.EaseInOut);
             currentTween2 =Tween.Rotation(transform, rotation, transitiontime, 0, Tween.EaseInOut);
+
+        }
+    }
+
+    protected void GoToPoint(Vector3 position, float transitiontime, Quaternion rotation, Action action, bool local = false)
+    {
+        if (currentTween != null)
+        {
+            currentTween.Stop();
+        }
+        if (currentTween2 != null)
+        {
+            currentTween2.Stop();
+        }
+
+        if (local)
+        {
+            currentTween = Tween.LocalPosition(transform, position, transitiontime, 0, Tween.EaseInOut);
+            currentTween2 = Tween.LocalRotation(transform, rotation, transitiontime, 0, Tween.EaseInOut, Tween.LoopType.None, null, action);
+        }
+        else
+        {
+            currentTween = Tween.Position(transform, position, transitiontime, 0, Tween.EaseInOut);
+            currentTween2 = Tween.Rotation(transform, rotation, transitiontime, 0, Tween.EaseInOut, Tween.LoopType.None, null, action);
 
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelSelector : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class LevelSelector : MonoBehaviour
     protected List<GameObject> levels = new List<GameObject>();
     [SerializeField]
     protected Transform vaseParent;
-
+    [SerializeField]
+    protected TextMeshProUGUI textPart;
+    [SerializeField]
+    protected List<string> parts = new List<string>();
     private void Awake()
     {
         play.onClick.AddListener(OnPlay);
@@ -44,7 +48,8 @@ public class LevelSelector : MonoBehaviour
             Destroy(vase);
         }
         vase = Instantiate(levels[currentLevel], vaseParent);
-        vase.transform.localPosition = Vector3.zero; 
+        vase.transform.localPosition = Vector3.zero;
+        textPart.text = parts[currentLevel];
     }
 
     protected void OnPrevious()

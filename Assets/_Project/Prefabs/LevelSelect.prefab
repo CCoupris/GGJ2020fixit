@@ -567,10 +567,17 @@ MonoBehaviour:
   play: {fileID: 917394211234874640}
   vase: {fileID: 0}
   levels:
-  - {fileID: 5678594386412947244, guid: fd6cd01ddf088a34f8ea6eaa9435c783, type: 3}
+  - {fileID: 3601010355528489140, guid: 8e603f402fae1f144b71f2d62e51b3ab, type: 3}
   - {fileID: 6977796462764843623, guid: 8c245b7f11bdb314baa143f7414022b7, type: 3}
+  - {fileID: 5678594386412947244, guid: fd6cd01ddf088a34f8ea6eaa9435c783, type: 3}
   - {fileID: 2506050536836203475, guid: 73136b02ced45f942bc4d74427125b2c, type: 3}
   vaseParent: {fileID: 917394212359224787}
+  textPart: {fileID: 8645769522061211973}
+  parts:
+  - 7 pieces
+  - 9 pieces
+  - 9 pieces
+  - 15 pieces
 --- !u!114 &8551735863629225229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88617be732351db4990f61e0636eba35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  back: {fileID: 0}
+  back: {fileID: 5236273033854916303}
   menu: {fileID: 0}
 --- !u!1 &8645769521570266982
 GameObject:

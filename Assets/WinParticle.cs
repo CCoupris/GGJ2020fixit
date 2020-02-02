@@ -13,5 +13,6 @@ public class WinParticle : MonoBehaviour
     private void SplitObject_OnFinish()
     {
         GetComponent<ParticleSystem>().Play();
+        GetComponent<AudioSource>().Play(48000);
     }
 }
