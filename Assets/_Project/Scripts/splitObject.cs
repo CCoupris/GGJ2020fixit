@@ -6,9 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(Orbit))]
+[RequireComponent(typeof(Orbit), typeof(Outline))]
 public class splitObject : MonoBehaviour
 {
+    public delegate void splitEventHandler();
+    public static event splitEventHandler OnFinish;
+
     protected List<snapFace> snapFaces = new List<snapFace>();
     [SerializeField]
     protected bool isFixed;
@@ -35,7 +38,20 @@ public class splitObject : MonoBehaviour
         {
             isFixed = value;
             CheckFace();
+            CheckFinish();
         }
+    }
+
+    public static void CheckFinish()
+    {
+        foreach (splitObject split in FindObjectsOfType<splitObject>())
+        {
+            if (!split.IsFixed)
+            {
+                return;
+            }
+        }
+        OnFinish.Invoke();
     }
 
     protected static splitObject InHand 
@@ -99,6 +115,13 @@ public class splitObject : MonoBehaviour
             {
                 face.gameObject.SetActive(false);
             }
+        }
+        if (IsFixed)
+        {
+            GetComponent<Outline>().enabled = false;
+        } else
+        {
+            GetComponent<Outline>().enabled = true;
         }
     }
 
